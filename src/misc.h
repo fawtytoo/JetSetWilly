@@ -13,7 +13,7 @@ typedef struct
 }
 TIMER;
 
-extern UINT videoPalette[16];
+extern u32  videoPalette[16];
 
 void Timer_Set(TIMER *, int, int);
 int Timer_Update(TIMER *);

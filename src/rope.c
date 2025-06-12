@@ -7,7 +7,7 @@
 
 typedef struct
 {
-    BYTE    x, y;
+    u8      x, y;
 }
 POINT;
 
@@ -36,7 +36,7 @@ static POINT    ropeInc[86] =
 };
 
 static int      ropeDir, ropeFrame;
-static BYTE     ropeInk;
+static u8       ropeInk;
 
 static ROPE     ropeSeg[ROPE_SEGS];
 

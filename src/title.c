@@ -23,7 +23,7 @@ static char     textTicker[] = "      Press ENTER to Start                      
 
 static int      textPos, textEnd = (int)sizeof(textTicker) - 33;
 static int      textFrame;
-static BYTE     colourCycle;
+static u8       colourCycle;
 static int      colourCycleAdj[6] = {1, 2, 3, 4, 5, 1};
 
 static void GameStart()

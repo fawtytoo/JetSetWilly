@@ -3,7 +3,7 @@
 #include "game.h"
 #include "audio.h"
 
-static WORD     dieBlank[16] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+static u16      dieBlank[16] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 static int      dieLevel;
 

@@ -1,9 +1,9 @@
 #define WIDTH   256
 #define HEIGHT  192
 
-typedef unsigned char   BYTE;
-typedef unsigned short  WORD;
-typedef unsigned int    UINT;
+typedef unsigned char   u8;
+typedef unsigned short  u16;
+typedef unsigned int    u32;
 
 typedef void (*EVENT)(void);
 

@@ -21,7 +21,7 @@
 typedef struct
 {
     int     left[3], right[3];    // pseudo stereo/panning effects
-    UINT    phase, frequency;
+    u32     phase, frequency;
     EVENT   DoPhase;
 }
 CHANNEL;
@@ -76,7 +76,7 @@ static int      panTable[2][249] =
     }
 };
 
-static UINT     frequencyTable[128] =
+static u32      frequencyTable[128] =
 {
     0x00184cbb, 0x0019bea3, 0x001b4688, 0x001ce5bd, 0x001e9da1, 0x00206fae, 0x00225d71, 0x00246891,
     0x002692cb, 0x0028ddfb, 0x002b4c15, 0x002ddf2d, 0x00309976, 0x00337d46, 0x00368d11, 0x0039cb7a,
@@ -205,7 +205,7 @@ void Audio_ReduceMusicSpeed()
 
 static void DoPhase()
 {
-    UINT    phase = curChannel->phase >> 31;
+    u32     phase = curChannel->phase >> 31;
 
     curChannel->left[2] = curChannel->left[phase];
     curChannel->right[2] = curChannel->right[phase];

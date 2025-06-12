@@ -4,14 +4,14 @@
 
 typedef struct
 {
-    BYTE    ink;
-    BYTE    point;
+    u8      ink;
+    u8      point;
 }
 PIXEL;
 
 static PIXEL    videoPixel[WIDTH * HEIGHT];
 
-static BYTE     charSet[128][10] =
+static u8       charSet[128][10] =
 {
     {0},
     {0}, // paper
@@ -124,7 +124,7 @@ static BYTE     charSet[128][10] =
     {9, 60, 66, 153, 165, 165, 129, 66, 60, 0}
 };
 
-static WORD     charSetLarge[96][8] =
+static u16      charSetLarge[96][8] =
 {
     {0, 0, 0, 0, 0, 0, 0, 0},
     {0, 0, 60, 7166, 7166, 60, 0, 0},
@@ -224,14 +224,14 @@ static WORD     charSetLarge[96][8] =
     {4080, 6168, 13260, 9252, 9252, 12876, 6168, 4080}
 };
 
-static BYTE     textInk[2] = {0x0, 0x0};
+static u8       textInk[2] = {0x0, 0x0};
 
 int Video_GetPixel(int pos)
 {
     return videoPixel[pos].point;
 }
 
-void Video_SetPixel(int pos, BYTE ink)
+void Video_SetPixel(int pos, u8 ink)
 {
     videoPixel[pos].ink = ink;
     System_SetPixel(pos, ink);
@@ -271,7 +271,7 @@ void Video_CycleColours(int state)
     System_Border(border);
 }
 
-void Video_PixelPaperFill(int pos, int size, BYTE ink)
+void Video_PixelPaperFill(int pos, int size, u8 ink)
 {
     for ( ; size > 0; size--, pos++)
     {
@@ -282,7 +282,7 @@ void Video_PixelPaperFill(int pos, int size, BYTE ink)
     }
 }
 
-void Video_PixelInkFill(int pos, int size, BYTE ink)
+void Video_PixelInkFill(int pos, int size, u8 ink)
 {
     for ( ; size > 0; size--, pos++)
     {
@@ -302,7 +302,7 @@ void Video_PixelFill(int pos, int size)
     }
 }
 
-void Video_DrawRopeSeg(int pos, BYTE ink)
+void Video_DrawRopeSeg(int pos, u8 ink)
 {
     videoPixel[pos].point = 1;
     Video_SetPixel(pos, ink);
@@ -331,13 +331,13 @@ void Video_DrawArrow(int pos, int dir)
     }
 }
 
-void Video_DrawTile(int tile, BYTE *what, BYTE paper, BYTE ink)
+void Video_DrawTile(int tile, u8 *what, u8 paper, u8 ink)
 {
     int     row, bit;
     int     pos = TILE2PIXEL(tile) + 7;
     int     pixel;
-    BYTE    byte;
-    BYTE    colour[2] = {paper, ink};
+    u8      byte;
+    u8      colour[2] = {paper, ink};
 
     for (row = 0; row < 8; row++, pos += WIDTH, what++)
     {
@@ -351,12 +351,12 @@ void Video_DrawTile(int tile, BYTE *what, BYTE paper, BYTE ink)
     }
 }
 
-void Video_DrawMiner(int pos, WORD *line, int level)
+void Video_DrawMiner(int pos, u16 *line, int level)
 {
     int     row, bit, y;
     int     pixel;
     int     attr[4] = {0x8, 0x8, 0x8, 0x1}, ink;
-    WORD    word;
+    u16     word;
 
     pos &= ~7;
     y = pos / WIDTH;
@@ -383,11 +383,11 @@ void Video_DrawMiner(int pos, WORD *line, int level)
     }
 }
 
-void Video_DrawRobot(int pos, WORD *line, BYTE ink)
+void Video_DrawRobot(int pos, u16 *line, u8 ink)
 {
     int     row, bit;
     int     pixel;
-    WORD    word;
+    u16     word;
 
     pos += 15;
 
@@ -406,12 +406,12 @@ void Video_DrawRobot(int pos, WORD *line, BYTE ink)
     }
 }
 
-void Video_DrawSprite(int pos, WORD *line, BYTE paper, BYTE ink)
+void Video_DrawSprite(int pos, u16 *line, u8 paper, u8 ink)
 {
     int     row, bit;
     int     pixel;
-    WORD    word;
-    BYTE    colour[2] = {paper, ink};
+    u16     word;
+    u8      colour[2] = {paper, ink};
 
     pos += 15;
 
@@ -446,7 +446,7 @@ static int TextCode(char *text)
 void Video_WriteLarge(int x, int y, char *text)
 {
     int     col, bit, pos;
-    WORD    *byte, line;
+    u16     *byte, line;
     int     pixel;
 
     pos = y * WIDTH;
@@ -478,7 +478,7 @@ void Video_WriteLarge(int x, int y, char *text)
 void Video_Write(int pos, char *text)
 {
     int     col, bit;
-    BYTE    *byte, line;
+    u8      *byte, line;
     int     pixel;
     int     width;
 

@@ -33,7 +33,7 @@ enum
 
 typedef struct
 {
-    BYTE    x, y, dy;
+    u8      x, y, dy;
     int     tile, align;
     int     frame;
     int     dir, move;
@@ -108,7 +108,7 @@ void Miner_Save(void);
 void Miner_Restore(void);
 void Miner_SetSeq(int, int);
 void Miner_IncSeq(void);
-void Miner_DrawSeqSprite(int, BYTE, BYTE);
+void Miner_DrawSeqSprite(int, u8, u8);
 
 // robots
 void Robots_Init(void);

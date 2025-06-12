@@ -7,15 +7,15 @@
 
 void Video_Write(int, char *);
 void Video_WriteLarge(int, int, char *);
-void Video_DrawSprite(int, WORD *, BYTE, BYTE);
-void Video_DrawRobot(int, WORD *, BYTE);
-void Video_DrawMiner(int, WORD *, int);
-void Video_DrawTile(int, BYTE *, BYTE, BYTE);
+void Video_DrawSprite(int, u16 *, u8, u8);
+void Video_DrawRobot(int, u16 *, u8);
+void Video_DrawMiner(int, u16 *, int);
+void Video_DrawTile(int, u8 *, u8, u8);
 void Video_DrawArrow(int, int);
-void Video_DrawRopeSeg(int, BYTE);
+void Video_DrawRopeSeg(int, u8);
 void Video_PixelFill(int, int);
-void Video_PixelInkFill(int, int, BYTE);
-void Video_PixelPaperFill(int, int, BYTE);
+void Video_PixelInkFill(int, int, u8);
+void Video_PixelPaperFill(int, int, u8);
 void Video_CycleColours(int);
 int Video_TextWidth(char *);
 int Video_GetPixel(int);

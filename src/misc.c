@@ -1,6 +1,6 @@
 #include "misc.h"
 
-UINT    videoPalette[16] =
+u32     videoPalette[16] =
 {
     0x000000,   // black
     0x0000ff,   // blue

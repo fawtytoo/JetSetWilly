@@ -13,15 +13,15 @@ typedef struct
     int     min, max;
     EVENT   DoMove, DoDraw;
     int     speed;
-    WORD    (*gfx)[16];
-    BYTE    ink;
+    u16     (*gfx)[16];
+    u8      ink;
     int     fUpdate;
     int     fIndex;
     int     fMask;
 }
 ROBOT;
 
-static WORD     robotGfx[45][8][16] =
+static u16      robotGfx[45][8][16] =
 {
     {
         {15, 63, 15, 12303, 3087, 783, 207, 47, 8, 16376, 16368, 16366, 8159, 8155, 4091, 4091},

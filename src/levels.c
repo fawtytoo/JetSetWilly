@@ -6,7 +6,7 @@
 
 typedef struct
 {
-    WORD    attr;
+    u16     attr;
     int     type;
 }
 INFO;
@@ -14,9 +14,9 @@ INFO;
 typedef struct
 {
     int     type;
-    BYTE    *gfx;
-    BYTE    paper[3];
-    BYTE    ink[3];
+    u8      *gfx;
+    u8      paper[3];
+    u8      ink[3];
     EVENT   DoDraw;
 }
 TILE;
@@ -1105,7 +1105,7 @@ static int      levelData[][512] =
     }
 };
 
-static BYTE     levelGfx[60][10][8] =
+static u8       levelGfx[60][10][8] =
 {
     {
         SPACE, {24, 24, 60, 126, 98, 98, 98, 126},
@@ -1512,8 +1512,8 @@ static int      levelItem[][12] =
 
 static int      levelItemCount[] = {12, 0, 1, 3, 0, 0, 0, 1, 0, 1, 1, 0, 3, 2, 2, 1, 1, 1, 1, 1, 0, 7, 2, 0, 0, 4, 0, 1, 0, 1, 1, 1, 0, 1, 1, 0, 0, 3, 1, 0, 1, 0, 0, 4, 1, 0, 2, 0, 6, 4, 1, 0, 0, 0, 0, 4, 1, 2, 1, 1};
 
-static BYTE     *conveyRotate[2];
-static BYTE     *gfxSpace = (BYTE [8])SPACE;
+static u8       *conveyRotate[2];
+static u8       *gfxSpace = (u8 [8])SPACE;
 
 static TILE     levelTile[512], *curTile;
 static int      curCell;
@@ -1636,7 +1636,7 @@ void Level_Init()
     int     cell, *data;
     TILE    *tile = &levelTile[0];
     INFO    *info = levelInfo[gameLevel];
-    BYTE    item = 0;
+    u8    item = 0;
     int     dir;
 
     data = levelData[gameLevel];

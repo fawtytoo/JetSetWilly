@@ -97,7 +97,7 @@ static int      gameRoom[][4] =
 
 static int      gameInactivityTimer;
 
-static BYTE     lifeInk[] = {0x2, 0x4, 0x6, 0x1, 0x3, 0x5, 0x7};
+static u8       lifeInk[] = {0x2, 0x4, 0x6, 0x1, 0x3, 0x5, 0x7};
 
 static int      gameFrame;
 static TIMER    gameTimer;
