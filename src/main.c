@@ -15,8 +15,6 @@ static SDL_AudioDeviceID    sdlAudio;
 
 static const u8             *keyState;
 
-static u32                  *texPixels;
-
 static int                  gameRunning = 1;
 
 int                         gameInput;
@@ -51,7 +49,14 @@ void System_AudioUnlock()
 
 void System_SetPixel(int point, int index)
 {
-    *(texPixels + point) = videoPalette[index];
+    Uint8   *pixel = (Uint8 *)sdlSurface->pixels;
+
+    pixel += (point / WIDTH) * sdlSurface->pitch;
+    pixel += (point & 255) * sdlSurface->format->BytesPerPixel;
+
+    *pixel++ = videoPalette[index] & 0xff;
+    *pixel++ = (videoPalette[index] >> 8) & 0xff;
+    *pixel++ = (videoPalette[index] >> 16);
 }
 
 void System_UpdateKeys()
@@ -225,7 +230,6 @@ int main()
         frame = Timer_Update(&timerFrame);
 
         SDL_LockTextureToSurface(sdlTexture, NULL, &sdlSurface);
-        texPixels = (u32 *)sdlSurface->pixels;
 
         while (frame--)
         {
