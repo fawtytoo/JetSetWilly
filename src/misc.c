@@ -1,25 +1,26 @@
 #include "misc.h"
 
-u32     videoPalette[16] =
+const COLOUR    videoColour[16] =
 {
-    0x000000,   // black
-    0x0000ff,   // blue
-    0xff0000,   // red
-    0xff00ff,   // magenta
-    0x00ff00,   // green
-    0x00aaff,   // light blue
-    0xffff00,   // yellow
-    0xffffff,   // white
-    0xcccccc,   // light grey (only for Willy or BT_SOLID)
-    0x0055ff,   // mid blue
-    0xaa0000,   // mid red
-    0x550000,   // dark red
-    0x00aa00,   // mid green
-    0x005500,   // dark green
-    0xff8000,   // orange
-    0x804000    // brown
+    {.r = 0x00, .g = 0x00, .b = 0x00},      // black
+    {.r = 0x00, .g = 0x00, .b = 0xff},      // blue
+    {.r = 0xff, .g = 0x00, .b = 0x00},      // red
+    {.r = 0xff, .g = 0x00, .b = 0xff},      // magenta
+    {.r = 0x00, .g = 0xff, .b = 0x00},      // green
+    {.r = 0x00, .g = 0xaa, .b = 0xff},      // light blue
+    {.r = 0xff, .g = 0xff, .b = 0x00},      // yellow
+    {.r = 0xff, .g = 0xff, .b = 0xff},      // white
+    {.r = 0xcc, .g = 0xcc, .b = 0xcc},      // mid grey (only for Willy or BT_SOLID)
+    {.r = 0x00, .g = 0x55, .b = 0xff},      // mid blue
+    {.r = 0xaa, .g = 0x00, .b = 0x00},      // mid red
+    {.r = 0x55, .g = 0x00, .b = 0x00},      // dark red
+    {.r = 0x00, .g = 0xaa, .b = 0x00},      // mid green
+    {.r = 0x00, .g = 0x55, .b = 0x00},      // dark green
+    {.r = 0xff, .g = 0x80, .b = 0x00},      // orange
+    {.r = 0x80, .g = 0x40, .b = 0x00}       // brown
 };
 
+// timer -----------------------------------------------------------------------
 void Timer_Set(TIMER *timer, int numerator, int divisor)
 {
     timer->acc = 0;
@@ -40,7 +41,7 @@ int Timer_Update(TIMER *timer)
 
     return timer->rate + 1;
 }
-
+ // external -------------------------------------------------------------------
 int Video_Viewport(int width, int height, int *x, int *y, int *w, int *h)
 {
     int multiply;
