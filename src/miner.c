@@ -62,7 +62,6 @@ static JUMP     jumpInfo[] =
 
 static MINER    minerStore;
 static u16      (*minerFrame)[16];
-static int      minerAlign;
 
 static u8       minerSeqIndex;
 static int      minerSeq[] = {4, 5, 6, 7, 3, 2, 1, 0};
