@@ -303,6 +303,11 @@ static void DoGameDrawer()
     Miner_Drawer();
     Rope_Drawer();
 
+    if (minerWilly.y < 0)
+    {
+        Game_ChangeLevel(R_ABOVE);
+    }
+
     DoClockUpdate();
 }
 

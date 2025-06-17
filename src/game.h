@@ -33,7 +33,7 @@ enum
 
 typedef struct
 {
-    u8      x, y, dy;
+    int     x, y, dy;
     int     tile, align;
     int     frame;
     int     dir, move;
