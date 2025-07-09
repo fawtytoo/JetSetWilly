@@ -20,18 +20,18 @@ JUMP;
 
 static u16      minerSprite[16][16] =
 {
-    {3840, 3840, 8064, 2816, 7936, 3840, 1536, 3840, 8064, 16320, 32736, 28512, 7936, 23424, 28864, 12736},
-    {960, 960, 2016, 704, 1984, 960, 384, 960, 2016, 2016, 3824, 3568, 960, 1760, 1888, 3808},
-    {240, 240, 504, 176, 496, 240, 96, 240, 472, 472, 472, 440, 240, 96, 96, 224},
     {60, 60, 126, 44, 124, 60, 24, 60, 126, 126, 239, 223, 60, 110, 118, 238},
+    {240, 240, 504, 176, 496, 240, 96, 240, 472, 472, 472, 440, 240, 96, 96, 224},
+    {960, 960, 2016, 704, 1984, 960, 384, 960, 2016, 2016, 3824, 3568, 960, 1760, 1888, 3808},
+    {3840, 3840, 8064, 2816, 7936, 3840, 1536, 3840, 8064, 16320, 32736, 28512, 7936, 23424, 28864, 12736},
     {15360, 15360, 32256, 13312, 15872, 15360, 6144, 15360, 32256, 32256, 63232, 64256, 15360, 30208, 28160, 30464},
     {3840, 3840, 8064, 3328, 3968, 3840, 1536, 3840, 7040, 7040, 7040, 7552, 3840, 1536, 1536, 1792},
     {960, 960, 2016, 832, 992, 960, 384, 960, 2016, 2016, 3952, 4016, 960, 1888, 1760, 1904},
     {240, 240, 504, 208, 248, 240, 96, 240, 504, 1020, 2046, 1782, 248, 474, 782, 908},
-    {0, 0, 0, 0, 0, 4928, 6016, 16320, 21824, 64160, 64832, 8096, 2176, 1280, 0, 0},
-    {0, 0, 0, 0, 0, 2256, 1504, 4080, 5808, 15696, 16040, 1872, 680, 596, 40, 20},
-    {0, 0, 0, 0, 0, 564, 376, 1020, 1364, 4010, 4052, 506, 136, 260, 0, 0},
     {3, 10, 21, 10, 21, 171, 86, 235, 341, 1003, 1023, 126, 34, 34, 0, 0},
+    {0, 0, 0, 0, 0, 564, 376, 1020, 1364, 4010, 4052, 506, 136, 260, 0, 0},
+    {0, 0, 0, 0, 0, 2256, 1504, 4080, 5808, 15696, 16040, 1872, 680, 596, 40, 20},
+    {0, 0, 0, 0, 0, 4928, 6016, 16320, 21824, 64160, 64832, 8096, 2176, 1280, 0, 0},
     {32768, 20480, 43008, 20480, 43008, 54528, 27136, 55040, 43648, 55232, 65472, 32256, 17408, 17408, 0, 0},
     {0, 0, 0, 0, 0, 11328, 7808, 16320, 10912, 22000, 11248, 24448, 4352, 8320, 0, 0},
     {0, 0, 0, 0, 0, 2832, 1952, 4080, 3432, 2748, 5500, 2784, 5440, 10816, 5120, 10240},
@@ -64,7 +64,6 @@ static MINER    minerStore;
 static u16      (*minerFrame)[16];
 
 static u8       minerSeqIndex;
-static int      minerSeq[] = {4, 5, 6, 7, 3, 2, 1, 0};
 static TIMER    minerTimer;
 
 MINER           minerWilly;
@@ -84,7 +83,7 @@ void Miner_IncSeq()
 
 void Miner_DrawSeqSprite(int pos, u8 paper, u8 ink)
 {
-    Video_DrawSprite(pos, minerSprite[minerSeq[minerSeqIndex]], paper, ink);
+    Video_DrawSprite(pos, minerSprite[minerSeqIndex], paper, ink);
 }
 
 void Miner_Restore()
@@ -216,9 +215,9 @@ static void MoveLeftRight()
     }
     else if (gameMode != GM_RUNNING)
     {
-        if (minerWilly.frame > 0)
+        if (minerWilly.frame < 3)
         {
-            minerWilly.frame--;
+            minerWilly.frame++;
             return;
         }
 
@@ -249,7 +248,7 @@ static void MoveLeftRight()
 
         minerWilly.x -= 8;
         minerWilly.tile--;
-        minerWilly.frame = 3;
+        minerWilly.frame = 0;
     }
 
     if (minerWilly.y + y < 0)
@@ -288,7 +287,7 @@ static void UpdateDir(int conveyDir)
         {
             minerWilly.dir = D_LEFT;
             minerWilly.move = 0;
-            minerWilly.frame &= 3;
+            minerWilly.frame ^= 7;
         }
         else
         {
@@ -301,7 +300,7 @@ static void UpdateDir(int conveyDir)
         {
             minerWilly.dir = D_RIGHT;
             minerWilly.move = 0;
-            minerWilly.frame += 4;
+            minerWilly.frame ^= 7;
         }
         else
         {
@@ -465,6 +464,7 @@ void Miner_Ticker()
 {
     int     tile, adj, offset = 0, align;
     int     i, type;
+    int     seq[8] = {6, 4, 2, 0, 0, 2, 4, 6};
 
     DoMinerTicker();
 
@@ -476,12 +476,12 @@ void Miner_Ticker()
     {
         if (Level_GetTileRamp(tile + 64) == T_RAMPL)
         {
-            offset = (minerWilly.frame & 3) << 1;
+            offset = seq[minerWilly.frame];
             align = YALIGN(offset);
         }
         else if (Level_GetTileRamp(tile + 65) == T_RAMPR)
         {
-            offset = 6 - ((minerWilly.frame & 3) << 1);
+            offset = 6 - seq[minerWilly.frame];
             align = YALIGN(offset);
         }
 

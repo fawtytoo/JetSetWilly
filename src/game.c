@@ -482,7 +482,7 @@ void Game_GameReset()
 
     gamePaused = 0;
 
-    Miner_SetSeq(0, 20);
+    Miner_SetSeq(4, 20);
     gameLives = 7;
 
     Audio_Music(MUS_GAME, gameMusic);
