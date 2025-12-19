@@ -35,3 +35,8 @@ has the same effect.
 The original game needed a "code card" to start the game after loading. This was
 an early attempt at copy protection. If you don't want to experience entering
 those codes, press any key during the "JetSet Willy Loading" sequence.
+
+# Windows build?
+
+Adding support for Windows is not planned. However, AukonDK of the [Jet Set Willy & Manic Miner community](https://jswmm.co.uk/)
+has kindly provided a 64bit of both Manic Miner & JetSet Willy for Windows available here: [MM and JSW ports to SDL2](https://jswmm.co.uk/topic/791-mm-and-jsw-ports-to-sdl2/).
