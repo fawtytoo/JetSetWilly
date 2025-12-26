@@ -129,7 +129,7 @@ void Rope_Init()
         ropeTop = 2;
         ropeInk = 6;
     }
-    if (gameLevel == SWIMMINGPOOL)
+    else if (gameLevel == SWIMMINGPOOL)
     {
         ropeX = 16;
         ropeTop = 2;
