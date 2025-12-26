@@ -21,6 +21,9 @@ static u8       ropeInk;
 
 EVENT           Rope_Ticker, Rope_Drawer;
 
+// miner frame sequence --------------------------------------------------------
+static const int    minerFrame[2][4] = {{2, 3, 0, 1}, {1, 0, 3, 2}};
+
 static void DoRopeDrawer()
 {
     int     x, y, pos;
@@ -46,28 +49,50 @@ static void DoRopeDrawer()
         }
 
         pos = y * WIDTH + x;
-        if (minerWilly.rope == 0 && (Video_GetPixel(pos) & B_WILLY))
+        if (minerWillyRope == 0 && (Video_GetPixel(pos) & B_WILLY))
         {
-            minerWilly.rope = seg;
+            minerWillyRope = seg;
         }
 
         Video_DrawRopeSeg(pos, ropeInk);
 
-        if (minerWilly.rope == seg)
+        if (minerWillyRope == seg)
         {
             minerWilly.x = x & 248;
             minerWilly.y = y - 8;
-            minerWilly.frame = ((x & 7) >> 1) | (minerWilly.dir << 2);
+
+            if (x & 1)
+            {
+                minerWilly.frame = minerFrame[minerWilly.dir][0];
+            }
+            else if (x & 2)
+            {
+                minerWilly.frame = minerFrame[minerWilly.dir][1];
+            }
+            else
+            {
+                minerWilly.x -= 8;
+                if (x & 4)
+                {
+                    minerWilly.frame = minerFrame[minerWilly.dir][2];
+                }
+                else
+                {
+                    minerWilly.frame = minerFrame[minerWilly.dir][3];
+                }
+            }
+            minerWilly.frame |= (minerWilly.dir << 2);
+
             minerWilly.tile = minerWilly.y / 8 * 32 + x / 8;
             minerWilly.align = YALIGN(y); // y before deduction
         }
     }
 
-    if (minerWilly.rope < 0) // this allows Willy to jump off a rope
+    if (minerWillyRope < 0) // this allows Willy to jump off a rope
     {
-        if (minerWilly.rope-- == -16) // for 16 frames
+        if (minerWillyRope-- == -16) // for 16 frames
         {
-            minerWilly.rope = 0;
+            minerWillyRope = 0;
         }
 
         return;
@@ -78,7 +103,7 @@ static void DoRopeDrawer()
         return;
     }
 
-    seg = minerWilly.rope + (ropeDir - minerWilly.dir ? -1 : 1);
+    seg = minerWillyRope + (ropeDir - minerWilly.dir ? -1 : 1);
 
     if (seg < ropeTop)
     {
@@ -87,11 +112,11 @@ static void DoRopeDrawer()
 
     if (seg < ROPE_SEGS)
     {
-        minerWilly.rope = seg;
+        minerWillyRope = seg;
         return;
     }
 
-    minerWilly.rope = -1;
+    minerWillyRope = -1;
     minerWilly.y &= 124;
     minerWilly.air = 0;
 }

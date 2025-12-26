@@ -38,7 +38,6 @@ typedef struct
     int     frame;
     int     dir, move;
     int     air, jump;
-    int     rope;
 } MINER;
 
 extern int      itemCount;
@@ -47,6 +46,7 @@ extern int      gamePaused;
 extern int      gameLives;
 
 extern MINER    minerWilly;
+extern int      minerWillyRope;
 
 // game
 extern int  gameLevel;

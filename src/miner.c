@@ -67,6 +67,7 @@ static u8       minerSeqIndex;
 static TIMER    minerTimer;
 
 MINER           minerWilly;
+int             minerWillyRope;
 int             minerAttrSplit;
 
 void Miner_SetSeq(int index, int speed)
@@ -98,7 +99,6 @@ void Miner_Restore()
     minerWilly.move = minerStore.move;
     minerWilly.air = minerStore.air;
     minerWilly.jump = minerStore.jump;
-    minerWilly.rope = minerStore.rope;
 }
 
 void Miner_Save()
@@ -113,7 +113,6 @@ void Miner_Save()
     minerStore.move = minerWilly.move;
     minerStore.air = minerWilly.air;
     minerStore.jump = minerWilly.jump;
-    minerStore.rope = minerWilly.rope;
 
     minerFrame = &minerSprite[0];
     if (gameLevel == NIGHTMAREROOM)
@@ -171,7 +170,7 @@ static void MoveLeftRight()
         return;
     }
 
-    if (minerWilly.rope > 0)
+    if (minerWillyRope > 0)
     {
         return;
     }
@@ -312,9 +311,9 @@ static void UpdateDir(int conveyDir)
     {
         minerWilly.air = 1;
         minerWilly.jump = 0;
-        if (minerWilly.rope > 0)
+        if (minerWillyRope > 0)
         {
-            minerWilly.rope = -1;
+            minerWillyRope = -1;
             minerWilly.y &= 120;
             minerWilly.align = 4;
             minerWilly.move = 1;
@@ -328,7 +327,7 @@ static void DoMinerTicker()
     int tile, type[2], y;
     int conveyDir = C_NONE;
 
-    if (minerWilly.rope > 0)
+    if (minerWillyRope > 0)
     {
         UpdateDir(conveyDir);
         return;
@@ -517,7 +516,6 @@ void Miner_Init()
     minerWilly.frame = 4;
     minerWilly.dir = D_RIGHT;
     minerWilly.move = 0;
-    minerWilly.rope = 0;
     minerWilly.air = 0;
 
     Miner_Save();

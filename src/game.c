@@ -187,7 +187,6 @@ void Game_ChangeLevel(int dir)
         minerWilly.tile = 13 * 32 + (minerWilly.tile & 31);
         minerWilly.align = 4;
         minerWilly.air = 0;
-        minerWilly.rope = 0;
         break;
 
       case R_RIGHT:
@@ -463,6 +462,8 @@ void Game_InitRoom()
     Timer_Set(&gameTimer, 12, TICKRATE);
     gameFrame = 1;
     gameInactivityTimer = 0;
+
+    minerWillyRope = 0;
 
     Ticker = DoGameTicker;
 
