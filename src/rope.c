@@ -80,7 +80,6 @@ static void DoRopeDrawer()
                     minerWilly.frame = 2;
                 }
             }
-            minerWilly.frame |= (minerWilly.dir << 2);
 
             minerWilly.tile = minerWilly.y / 8 * 32 + x / 8;
             minerWilly.align = YALIGN(y); // y before deduction

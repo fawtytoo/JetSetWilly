@@ -184,6 +184,7 @@ void Game_ChangeLevel(int dir)
     {
       case R_ABOVE:
         minerWilly.dy = minerWilly.y = 13 * 8;
+        minerWilly.x = (minerWilly.tile & 31) * 8;
         minerWilly.tile = 13 * 32 + (minerWilly.tile & 31);
         minerWilly.align = 4;
         minerWilly.air = 0;
