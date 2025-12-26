@@ -15,14 +15,13 @@ static DATA     ropeData[86] =
     {0, 3}, {0, 3}, {0, 3}, {0, 3}, {0, 3}, {0, 3}, {0, 3}, {0, 3}, {0, 3}, {0, 3}, {0, 3}, {0, 3}, {0, 3}, {0, 3}, {0, 3}, {0, 3}, {0, 3}, {0, 3}, {0, 3}, {0, 3}, {0, 3}, {0, 3}, {0, 3}, {0, 3}, {0, 3}, {0, 3}, {0, 3}, {0, 3}, {0, 3}, {0, 3}, {0, 3}, {0, 3}, {1, 3}, {1, 3}, {1, 3}, {1, 3}, {1, 3}, {1, 3}, {1, 3}, {1, 3}, {1, 3}, {1, 3}, {1, 3}, {1, 3}, {2, 3}, {2, 3}, {2, 3}, {2, 3}, {2, 2}, {2, 3}, {2, 3}, {2, 2}, {2, 3}, {2, 2}, {2, 3}, {2, 2}, {2, 3}, {2, 2}, {2, 2}, {2, 2}, {2, 3}, {2, 2}, {2, 2}, {2, 2}, {2, 2}, {2, 2}, {1, 2}, {2, 2}, {2, 2}, {1, 2}, {1, 2}, {2, 2}, {1, 2}, {1, 2}, {2, 2}, {2, 2}, {3, 2}, {2, 2}, {3, 2}, {2, 2}, {3, 2}, {3, 2}, {3, 2}, {3, 2}, {3, 2}, {3, 2}
 };
 
+static int      ropeMove[2] = {-1, 1};
+
 static int      ropeDir, ropePos;
 static int      ropeX, ropeTop;
 static u8       ropeInk;
 
 EVENT           Rope_Ticker, Rope_Drawer;
-
-// miner frame sequence --------------------------------------------------------
-static const int    minerFrame[2][4] = {{2, 3, 0, 1}, {1, 0, 3, 2}};
 
 static void DoRopeDrawer()
 {
@@ -63,22 +62,22 @@ static void DoRopeDrawer()
 
             if (x & 1)
             {
-                minerWilly.frame = minerFrame[minerWilly.dir][0];
+                minerWilly.frame = 1;
             }
             else if (x & 2)
             {
-                minerWilly.frame = minerFrame[minerWilly.dir][1];
+                minerWilly.frame = 0;
             }
             else
             {
                 minerWilly.x -= 8;
                 if (x & 4)
                 {
-                    minerWilly.frame = minerFrame[minerWilly.dir][2];
+                    minerWilly.frame = 3;
                 }
                 else
                 {
-                    minerWilly.frame = minerFrame[minerWilly.dir][3];
+                    minerWilly.frame = 2;
                 }
             }
             minerWilly.frame |= (minerWilly.dir << 2);
@@ -103,7 +102,7 @@ static void DoRopeDrawer()
         return;
     }
 
-    seg = minerWillyRope + (ropeDir - minerWilly.dir ? -1 : 1);
+    seg = minerWillyRope + ropeMove[ropeDir ^ minerWilly.dir];
 
     if (seg < ropeTop)
     {
@@ -123,14 +122,14 @@ static void DoRopeDrawer()
 
 static void DoRopeTicker()
 {
-    ropePos += ropeDir ? 2 : -2;
+    ropePos += ropeMove[ropeDir] * 2;
     if (ropePos > -18 && ropePos < 18)
     {
-        ropePos += ropeDir ? 2 : -2;
+        ropePos += ropeMove[ropeDir] * 2;
     }
     else if (ropePos == 54 || ropePos == -54)
     {
-        ropeDir = 1 - ropeDir;
+        ropeDir ^= 1;
     }
 }
 
