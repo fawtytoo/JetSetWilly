@@ -313,7 +313,7 @@ static void UpdateDir(int conveyDir)
         minerWilly.jump = 0;
         if (minerWillyRope > 0)
         {
-            minerWillyRope = -1;
+            minerWillyRope = -16;
             minerWilly.y &= 120;
             minerWilly.align = 4;
             minerWilly.move = 1;
