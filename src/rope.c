@@ -18,7 +18,7 @@ static DATA     ropeData[86] =
 static int      ropeMove[2] = {-1, 1};
 
 static int      ropeDir, ropePos, ropeHold;
-static int      ropeX, ropeTop;
+static int      ropeX;
 static u8       ropeInk;
 
 EVENT           Rope_Ticker, Rope_Drawer;
@@ -98,9 +98,9 @@ static void DoRopeDrawer()
     {
         seg = minerWillyRope + ropeMove[ropeDir ^ minerWilly.dir];
 
-        if (seg < ropeTop)
+        if (!Game_RoomAbove() && seg < 15)
         {
-            seg = ropeTop;
+            seg = 15;
         }
 
         if (seg < ROPE_SEGS)
@@ -133,31 +133,26 @@ void Rope_Init()
     if (gameLevel == QUIRKAFLEEG)
     {
         ropeX = 16;
-        ropeTop = 2;
         ropeInk = 6;
     }
     else if (gameLevel == ONTHEROOF)
     {
         ropeX = 16;
-        ropeTop = 15;
         ropeInk = 4;
     }
     else if (gameLevel == COLDSTORE)
     {
         ropeX = 16;
-        ropeTop = 2;
         ropeInk = 6;
     }
     else if (gameLevel == SWIMMINGPOOL)
     {
         ropeX = 16;
-        ropeTop = 2;
         ropeInk = 7;
     }
     else if (gameLevel == THEBEACH)
     {
         ropeX = 14;
-        ropeTop = 15;
         ropeInk = 5;
     }
     else

@@ -55,6 +55,7 @@ extern int  gameClockTicks;
 void Game_InitRoom(void);
 void Game_GotItem(void);
 void Game_ChangeLevel(int);
+int Game_RoomAbove(void);
 void Game_Inactivity(int);
 void Game_GameReset(void);
 void Game_DrawStatus(void);
