@@ -171,6 +171,9 @@ void Rope_Init()
     ropeDir = 0;
     ropePos = 34;
 
+    // this is normally reset by copying over entity definitions
+    ropeHold = 0;
+
     Rope_Ticker = DoRopeTicker;
     Rope_Drawer = DoRopeDrawer;
 }
