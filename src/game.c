@@ -5,7 +5,6 @@
 #include "game.h"
 
 static int      gameMusic = MUS_PLAY;
-static int      gameLevelDir;
 
 static char     *levelName[] =
 {
