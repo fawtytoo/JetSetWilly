@@ -252,12 +252,6 @@ static void MoveLeftRight()
         minerWilly.frame = 3;
     }
 
-    if (minerWilly.y + y < 0)
-    {
-        Game_ChangeLevel(R_ABOVE);
-        return;
-    }
-
     minerWilly.y += y;
     minerWilly.tile += offset;
 }
@@ -465,6 +459,11 @@ void Miner_Ticker()
     int     i, type;
 
     DoMinerTicker();
+
+    if (minerWilly.y < 0)
+    {
+        Game_ChangeLevel(R_ABOVE);
+    }
 
     tile = minerWilly.tile;
     minerWilly.dy = minerWilly.y;
