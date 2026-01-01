@@ -93,7 +93,6 @@ void Miner_Restore()
 {
     minerWilly.x = minerStore.x;
     minerWilly.y = minerStore.y;
-    minerWilly.dy = minerStore.dy;
     minerWilly.tile = minerStore.tile;
     minerWilly.align = minerStore.align;
     minerWilly.frame = minerStore.frame;
@@ -107,7 +106,6 @@ void Miner_Save()
 {
     minerStore.x = minerWilly.x;
     minerStore.y = minerWilly.y;
-    minerStore.dy = minerWilly.dy;
     minerStore.tile = minerWilly.tile;
     minerStore.align = minerWilly.align;
     minerStore.frame = minerWilly.frame;
@@ -341,7 +339,7 @@ static void DoMinerTicker()
         if (Level_GetTileType(tile) == T_SOLID || Level_GetTileType(tile + 1) == T_SOLID)
         {
             // we need to re-align Willy
-            minerWilly.dy = minerWilly.y = (y + 8) & 120;
+            minerWilly.y = (y + 8) & 120;
             minerWilly.tile = tile + 32;
             minerWilly.align = 4;
 
@@ -455,60 +453,62 @@ static void DoMinerTicker()
 
 void Miner_Ticker()
 {
-    int     tile, adj, offset = 0, align;
-    int     i, type;
-
     DoMinerTicker();
 
     if (minerWilly.y < 0)
     {
         Game_ChangeLevel(R_ABOVE);
     }
-
-    tile = minerWilly.tile;
-    minerWilly.dy = minerWilly.y;
-    align = minerWilly.align;
-
-    if (minerWilly.align == 4 && minerWilly.air == 0)
-    {
-        if (Level_GetTileRamp(tile + 64) == T_RAMPL)
-        {
-            offset = minerWilly.frame << 1;
-            align = YALIGN(offset);
-        }
-        else if (Level_GetTileRamp(tile + 65) == T_RAMPR)
-        {
-            offset = 6 - (minerWilly.frame << 1);
-            align = YALIGN(offset);
-        }
-
-        minerWilly.dy += offset;
-    }
-
-    for (i = 0, adj = 1; i < align; i++, tile += adj, adj ^= 30)
-    {
-        type = Level_GetTileType(tile);
-        if (type == T_ITEM)
-        {
-            Level_EraseItem(tile);
-            Game_GotItem();
-        }
-        else if (type == T_HARM)
-        {
-            Action = Die_Action;
-        }
-    }
 }
 
 void Miner_Drawer()
 {
-    Video_DrawMiner((minerWilly.dy << 8) | minerWilly.x, minerFrame[(minerWilly.dir << 2) | minerWilly.frame], minerAttrSplit);
+    int     tile, adj, offset = 0, align;
+    int     i;
+
+    align = minerWilly.align;
+
+    if (minerWilly.air == 0)
+    {
+        if (Level_GetTileRamp(minerWilly.tile + 64) == T_RAMPL)
+        {
+            offset = minerWilly.frame << 1;
+            align = YALIGN(offset);
+        }
+        else if (Level_GetTileRamp(minerWilly.tile + 65) == T_RAMPR)
+        {
+            offset = 6 - (minerWilly.frame << 1);
+            align = YALIGN(offset);
+        }
+    }
+
+    Video_DrawMiner(((minerWilly.y + offset) << 8) | minerWilly.x, minerFrame[(minerWilly.dir << 2) | minerWilly.frame], minerAttrSplit);
+
+    tile = minerWilly.tile;
+    for (i = 0, adj = 1; i < align; i++, tile += adj, adj ^= 30)
+    {
+        if (Level_GetTileType(tile) == T_HARM)
+        {
+            Action = Die_Action;
+            return;
+        }
+    }
+
+    tile = minerWilly.tile;
+    for (i = 0, adj = 1; i < align; i++, tile += adj, adj ^= 30)
+    {
+        if (Level_GetTileType(tile) == T_ITEM)
+        {
+            Level_EraseItem(tile);
+            Game_GotItem();
+        }
+    }
 }
 
 void Miner_Init()
 {
     minerWilly.x = 20 * 8;
-    minerWilly.dy = minerWilly.y = 13 * 8;
+    minerWilly.y = 13 * 8;
     minerWilly.tile = 13 * 32 + 20;
     minerWilly.align = 4;
     minerWilly.move = 0;
