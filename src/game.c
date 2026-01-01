@@ -175,7 +175,7 @@ void Game_ChangeLevel(int dir)
         // this fixes jumping up from the ramp in "Under the Drive"
         //  and appearing inside the floor in "The Drive"
         // also applies to "First Landing"
-        if ((gameRoom[gameLevel][dir] == THEDRIVE && minerWilly.x > 22) || (gameRoom[gameLevel][dir] == FIRSTLANDING && minerWilly.x > 182))
+        if ((gameRoom[gameLevel][dir] == THEDRIVE && minerWilly.x > 22 && minerWilly.x < 32) || (gameRoom[gameLevel][dir] == FIRSTLANDING && minerWilly.x > 182))
         {
             minerWilly.air = 2;
             return; // we're not changing rooms
