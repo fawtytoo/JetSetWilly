@@ -55,7 +55,6 @@ extern int  gameClockTicks;
 void Game_InitRoom(void);
 void Game_GotItem(void);
 void Game_ChangeLevel(int);
-int Game_RoomAbove(void);
 void Game_Inactivity(int);
 void Game_GameReset(void);
 void Game_DrawStatus(void);
@@ -98,6 +97,7 @@ int Level_GetTileType(int);
 int Level_GetTileRamp(int);
 void Level_EraseItem(int);
 int Level_ItemCount(void);
+int Level_Dir(int);
 
 // miner
 extern int  minerAttrSplit;

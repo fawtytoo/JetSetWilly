@@ -98,7 +98,7 @@ static void DoRopeDrawer()
     {
         seg = minerWillyRope + ropeMove[ropeDir ^ minerWilly.dir];
 
-        if (!Game_RoomAbove() && seg < 15)
+        if (Level_Dir(R_ABOVE) == 0 && seg < 15)
         {
             seg = 15;
         }
