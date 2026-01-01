@@ -482,7 +482,11 @@ void Miner_Drawer()
         }
     }
 
-    Video_DrawMiner(((minerWilly.y + offset) << 8) | minerWilly.x, minerFrame[(minerWilly.dir << 2) | minerWilly.frame], minerAttrSplit);
+    if (Video_DrawMiner(((minerWilly.y + offset) << 8) | minerWilly.x, minerFrame[(minerWilly.dir << 2) | minerWilly.frame], minerAttrSplit))
+    {
+        Action = Die_Action;
+        return;
+    }
 
     tile = minerWilly.tile;
     for (i = 0, adj = 1; i < align; i++, tile += adj, adj ^= 30)

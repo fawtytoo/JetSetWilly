@@ -9,7 +9,7 @@ void Video_Write(int, char *);
 void Video_WriteLarge(int, int, char *);
 void Video_DrawSprite(int, u16 *, u8, u8);
 void Video_DrawRobot(int, u16 *, u8);
-void Video_DrawMiner(int, u16 *, int);
+int Video_DrawMiner(int, u16 *, int);
 void Video_DrawTile(int, u8 *, u8, u8);
 void Video_DrawArrow(int, int);
 void Video_DrawRopeSeg(int, u8);

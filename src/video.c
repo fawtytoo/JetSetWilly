@@ -351,12 +351,13 @@ void Video_DrawTile(int tile, u8 *what, u8 paper, u8 ink)
     }
 }
 
-void Video_DrawMiner(int pos, u16 *line, int level)
+int Video_DrawMiner(int pos, u16 *line, int level)
 {
     int     row, bit, y;
     int     pixel;
     int     attr[4] = {0x8, 0x8, 0x8, 0x1}, ink;
     u16     word;
+    int     die = 0;
 
     pos &= ~7;
     y = pos / WIDTH;
@@ -373,7 +374,7 @@ void Video_DrawMiner(int pos, u16 *line, int level)
             {
                 if (Video_GetPixel(pixel) & B_ROBOT)
                 {
-                    Action = Die_Action;
+                    die = 1;
                 }
 
                 videoPixel[pixel].point |= B_WILLY | 1;
@@ -381,6 +382,8 @@ void Video_DrawMiner(int pos, u16 *line, int level)
             }
         }
     }
+
+    return die;
 }
 
 void Video_DrawRobot(int pos, u16 *line, u8 ink)
