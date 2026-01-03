@@ -29,7 +29,7 @@ Cheat mode is activated just like in the original game by typing the code. Once
 activated, switching levels is as simple.
 
 The keyboard numbers 1 to 0 are levels 1 to 10, letters A to T are levels
-11 to 30 and the Backspace key changes that to levels 31 to 60. Then press Enter
+11 to 30 and the Shift key changes that to levels 31 to 60. Then press Enter
 to change level. These key combinations need to be pressed simultaneously.
 
 ## Copy protection
