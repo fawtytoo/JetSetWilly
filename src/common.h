@@ -9,6 +9,9 @@ typedef void (*EVENT)(void);
 
 enum
 {
+    KEY_LEFT,
+    KEY_RIGHT,
+    KEY_JUMP,
     KEY_NONE,
     KEY_0,
     KEY_1,
@@ -21,9 +24,6 @@ enum
     KEY_8,
     KEY_9,
     KEY_ENTER,
-    KEY_LEFT,
-    KEY_RIGHT,
-    KEY_JUMP,
     KEY_ESCAPE,
     KEY_PAUSE,
     KEY_MUTE,
@@ -68,10 +68,7 @@ void DoQuit(void);
 
 void System_Border(int);
 int System_Rnd(void);
-void System_UpdateKeys(void);
-int System_IsKeyLeft(void);
-int System_IsKeyRight(void);
-int System_IsKeyJump(void);
+int System_IsKey(int);
 void System_SetPixel(int, int);
 
 void Codes_Action(void);

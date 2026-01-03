@@ -258,14 +258,12 @@ static void UpdateDir(int conveyDir)
 {
     int dir = 0;
 
-    System_UpdateKeys();
-
-    if ((System_IsKeyLeft() || conveyDir == C_LEFT) && gameMode < GM_RUNNING)
+    if ((System_IsKey(KEY_LEFT) || conveyDir == C_LEFT) && gameMode < GM_RUNNING)
     {
         dir += 1;
     }
 
-    if (System_IsKeyRight() || conveyDir == C_RIGHT || gameMode == GM_RUNNING)
+    if (System_IsKey(KEY_RIGHT) || conveyDir == C_RIGHT || gameMode == GM_RUNNING)
     {
         dir += 2;
     }
@@ -299,7 +297,7 @@ static void UpdateDir(int conveyDir)
         }
     }
 
-    if (System_IsKeyJump() && gameMode < GM_RUNNING)
+    if (System_IsKey(KEY_JUMP) && gameMode < GM_RUNNING)
     {
         minerWilly.air = 1;
         minerWilly.jump = 0;

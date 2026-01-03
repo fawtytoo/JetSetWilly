@@ -28,6 +28,11 @@ EVENT                       Responder = DoNothing;
 EVENT                       Ticker = DoNothing;
 EVENT                       Drawer = DoNothing;
 
+static const SDL_Keycode    sdlKey[3] =
+{
+    SDLK_LEFT, SDLK_RIGHT, SDLK_SPACE
+};
+
 void DoNothing()
 {
 }
@@ -51,24 +56,9 @@ void System_SetPixel(int point, int index)
     *pixel++ = videoColour[index].r;
 }
 
-void System_UpdateKeys()
+int System_IsKey(int key)
 {
-    SDL_PumpEvents();
-}
-
-int System_IsKeyLeft()
-{
-    return keyState[SDL_SCANCODE_LEFT];
-}
-
-int System_IsKeyRight()
-{
-    return keyState[SDL_SCANCODE_RIGHT];
-}
-
-int System_IsKeyJump()
-{
-    return keyState[SDL_SCANCODE_SPACE];
+    return keyState[SDL_GetScancodeFromKey(sdlKey[key])];
 }
 
 int System_Rnd()
