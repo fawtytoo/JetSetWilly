@@ -14,7 +14,7 @@ void Cheat_Enabled()
 
     for (i = 0; i < 30; i++)
     {
-        if (System_IsKey(KEY_0 + i))
+        if (System_IsKey(KEY_1 + i))
         {
             level = i + 1;
             break;
@@ -32,7 +32,7 @@ void Cheat_Enabled()
         return;
     }
 
-    if (System_IsKey(KEY_BACKSPACE))
+    if (System_IsKey(KEY_LSHIFT) || System_IsKey(KEY_RSHIFT))
     {
         level += 30;
     }
