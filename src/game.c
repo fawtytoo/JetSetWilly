@@ -24,7 +24,7 @@ static int      gameInactivityTimer;
 
 static u8       lifeInk[] = {0x2, 0x4, 0x6, 0x1, 0x3, 0x5, 0x7};
 
-static int      gameFrame;
+int      gameFrame;
 static TIMER    gameTimer;
 
 int             gamePaused = 0;
@@ -234,6 +234,13 @@ static void DoGameDrawer()
     DoClockUpdate();
 }
 
+static void DoDrawOnce()
+{
+    DoGameDrawer();
+
+    Drawer = DoNothing;
+}
+
 static void DoGameTicker()
 {
     if (gameMusic == MUS_PLAY)
@@ -298,6 +305,11 @@ void Game_Pause(int state)
         return;
     }
 
+    if (gamePaused == state)
+    {
+        return;
+    }
+
     gamePaused = state;
 
     if (gamePaused)
@@ -329,16 +341,33 @@ void Game_Pause(int state)
     }
 }
 
+void Game_CheatEnabled()
+{
+    if (gamePaused)
+    {
+        gameFrame = 1;
+        DoGameDrawer();
+
+        Ticker = DoNothing;
+        Drawer = DoNothing;
+    }
+
+    cheatEnabled = 1;
+
+    Game_DrawStatus();
+    Robots_DrawCheat();
+    System_Border(levelBorder[gameLevel]);
+}
+
 static void DoGameResponder()
 {
     gameInactivityTimer = 0;
 
-    if (gameInput == KEY_PAUSE || gamePaused)
+    if (gameInput == KEY_PAUSE)// || gamePaused)
     {
         Game_Pause(gamePaused ? 0 : 1);
     }
-
-    if (gameInput == KEY_MUTE)
+    else if (gameInput == KEY_MUTE)
     {
         gameMusic = gameMusic == MUS_PLAY ? MUS_STOP : MUS_PLAY;
         Audio_Play(gameMusic);
@@ -386,7 +415,15 @@ void Game_InitRoom()
 
     minerWillyRope = 0;
 
-    Ticker = DoGameTicker;
+    if (gamePaused)
+    {
+        Ticker = DoNothing;
+        Drawer = DoDrawOnce;
+    }
+    else
+    {
+        Ticker = DoGameTicker;
+    }
 
     Action = DoGameAction;
 }

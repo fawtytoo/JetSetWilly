@@ -23,6 +23,7 @@ void Cheat_Enabled()
 
     if (!System_IsKey(KEY_ENTER))
     {
+        Game_Pause(0);
         return;
     }
 
@@ -48,20 +49,10 @@ void Cheat_Enabled()
 
 void Cheat_Disabled()
 {
-    if (gameLevel != FIRSTLANDING || minerWilly.y != 104)
+    if (gameLevel != FIRSTLANDING || minerWilly.y != 104 || cheatCode[cheatPos] != gameInput - KEY_A + 'a')
     {
         cheatPos = 0;
-        return;
-    }
-
-    if (gameInput < KEY_A || gameInput > KEY_Z)
-    {
-        return;
-    }
-
-    if (cheatCode[cheatPos] != gameInput - KEY_A + 'a')
-    {
-        cheatPos = 0;
+        Game_Pause(0);
         return;
     }
 
@@ -71,9 +62,7 @@ void Cheat_Disabled()
         return;
     }
 
-    cheatEnabled = 1;
-    cheatPos = 0;
+    Game_CheatEnabled();
 
     Cheat_Responder = Cheat_Enabled;
-    Robots_DrawCheat();
 }
