@@ -102,7 +102,7 @@ static void DoTitleDrawer()
 
     if (colourCycle == 1)
     {
-        Video_CycleColours(0);
+        System_Border(Video_CycleColours());
     }
 
     Video_WriteLarge(0, 0, "\x1\x1\x2\x7");

@@ -2433,6 +2433,12 @@ TILE;
 static TILE     levelTile[512], *curTile;
 static int      curCell;
 
+void Level_SetBorder()
+{
+    System_Border(levelTile[0].ink[0]);
+    levelTile[0].ink[0] = (levelTile[0].ink[0] + 3) & 0xf;
+}
+
 int Level_Dir(int dir)
 {
     return levelData[gameLevel].map[dir];

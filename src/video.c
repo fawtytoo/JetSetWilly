@@ -249,26 +249,16 @@ int Video_TextWidth(char *text)
     return l;
 }
 
-void Video_CycleColours(int state)
+int Video_CycleColours()
 {
-    int     pos, border = -1;
-
-    if (state == 1)
-    {
-        border = videoPixel[0].ink;
-    }
+    int     pos;
 
     for (pos = 0; pos < WIDTH * HEIGHT; pos++)
     {
         Video_SetPixel(pos, (videoPixel[pos].ink + 3) & 0xf);
     }
 
-    if (border == -1)
-    {
-        border = videoPixel[pos - 1].ink; // equals last attribute position changed
-    }
-
-    System_Border(border);
+    return videoPixel[0].ink;
 }
 
 void Video_PixelPaperFill(int pos, int size, u8 ink)

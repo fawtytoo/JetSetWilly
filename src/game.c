@@ -195,7 +195,8 @@ static void DoPauseDrawer()
 {
     if (gamePaused == 16 * 5)
     {
-        Video_CycleColours(1);
+        Level_SetBorder();
+        Video_CycleColours();
     }
 }
 

@@ -98,6 +98,7 @@ int Level_GetTileRamp(int);
 void Level_EraseItem(int);
 int Level_ItemCount(void);
 int Level_Dir(int);
+void Level_SetBorder(void);
 
 // miner
 extern int  minerAttrSplit;

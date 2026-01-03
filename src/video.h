@@ -16,6 +16,6 @@ void Video_DrawRopeSeg(int, u8);
 void Video_PixelFill(int, int);
 void Video_PixelInkFill(int, int, u8);
 void Video_PixelPaperFill(int, int, u8);
-void Video_CycleColours(int);
+int Video_CycleColours(void);
 int Video_TextWidth(char *);
 int Video_GetPixel(int);
