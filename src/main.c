@@ -39,16 +39,6 @@ void DoQuit()
     Ticker = DoNothing;
 }
 
-void System_AudioLock()
-{
-    SDL_LockAudioDevice(sdlAudio);
-}
-
-void System_AudioUnlock()
-{
-    SDL_UnlockAudioDevice(sdlAudio);
-}
-
 void System_SetPixel(int point, int index)
 {
     Uint8   *pixel = (Uint8 *)sdlSurface->pixels;

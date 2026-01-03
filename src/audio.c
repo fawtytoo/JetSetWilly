@@ -408,8 +408,6 @@ void Audio_Play(int playing)
 
 void Audio_Music(int music, int playing)
 {
-    System_AudioLock();
-
     musicIndex = music;
     MusicReset();
     musicPitch = 0;
@@ -423,8 +421,6 @@ void Audio_Music(int music, int playing)
     samplesMusic = 0;
     Timer_Set(&timerMusic, SAMPLERATE, TICKRATE);
     Audio_Play(playing);
-
-    System_AudioUnlock();
 }
 
 void Audio_Init()

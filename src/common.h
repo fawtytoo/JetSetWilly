@@ -73,8 +73,6 @@ int System_IsKeyLeft(void);
 int System_IsKeyRight(void);
 int System_IsKeyJump(void);
 void System_SetPixel(int, int);
-void System_AudioLock(void);
-void System_AudioUnlock(void);
 
 void Codes_Action(void);
 void Loader_Action(void);
