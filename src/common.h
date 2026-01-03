@@ -12,7 +12,8 @@ enum
     KEY_LEFT,
     KEY_RIGHT,
     KEY_JUMP,
-    KEY_NONE,
+    KEY_ENTER,
+    KEY_BACKSPACE,
     KEY_0,
     KEY_1,
     KEY_2,
@@ -23,10 +24,6 @@ enum
     KEY_7,
     KEY_8,
     KEY_9,
-    KEY_ENTER,
-    KEY_ESCAPE,
-    KEY_PAUSE,
-    KEY_MUTE,
     KEY_A,
     KEY_B,
     KEY_C,
@@ -53,8 +50,12 @@ enum
     KEY_X,
     KEY_Y,
     KEY_Z,
+    KEY_ESCAPE,
+    KEY_PAUSE,
+    KEY_MUTE,
     KEY_QUIT,
-    KEY_ELSE
+    KEY_ELSE,
+    KEY_NONE
 };
 
 extern EVENT    Action, Responder, Ticker, Drawer;

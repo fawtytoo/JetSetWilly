@@ -1,52 +1,49 @@
 #include "common.h"
 #include "game.h"
 
-static char         cheatCode[] = "writetyper.";
+static char         *cheatCode = "writetyper";
 static int          cheatPos = 0;
-static int          cheatLevel[2];
 
 int                 cheatEnabled = 0;
 EVENT               Cheat_Responder = Cheat_Disabled;
 
 void Cheat_Enabled()
 {
-    int         level;
+    int     level = 0;
+    int     i;
 
-    if (gameInput == KEY_ENTER && cheatPos > 0)
+    for (i = 0; i < 30; i++)
     {
-        level = cheatLevel[0];
-        if (cheatPos == 2)
+        if (System_IsKey(KEY_0 + i))
         {
-            level = level * 10 + cheatLevel[1];
+            level = i + 1;
+            break;
         }
-        level--;
-
-        cheatPos = 0;
-
-        if (level < 0 || level > 59 || level == gameLevel)
-        {
-            return;
-        }
-
-        gameLevel = level;
-        Ticker = Game_InitRoom; // NOT Action
-        return;
     }
 
-    if (gameInput < KEY_0 || gameInput > KEY_9)
+    if (!System_IsKey(KEY_ENTER))
     {
-        cheatPos = 0;
         return;
     }
 
-    if (cheatPos == 2)
+    if (level == 0)
     {
-        cheatPos = 0;
         return;
     }
 
-    cheatLevel[cheatPos] = gameInput - KEY_0;
-    cheatPos++;
+    if (System_IsKey(KEY_BACKSPACE))
+    {
+        level += 30;
+    }
+
+    level--;
+    if (level == gameLevel)
+    {
+        return;
+    }
+
+    gameLevel = level;
+    Ticker = Game_InitRoom; // NOT Action
 }
 
 void Cheat_Disabled()
@@ -69,7 +66,7 @@ void Cheat_Disabled()
     }
 
     cheatPos++;
-    if (cheatCode[cheatPos] != '.')
+    if (cheatCode[cheatPos] != '\0')
     {
         return;
     }
