@@ -346,17 +346,17 @@ void Game_CheatEnabled()
     if (gamePaused)
     {
         gameFrame = 1;
-        DoGameDrawer();
 
         Ticker = DoNothing;
-        Drawer = DoNothing;
+        Drawer = DoDrawOnce;
+
+        Game_DrawStatus();
+        System_Border(levelBorder[gameLevel]);
     }
 
     cheatEnabled = 1;
 
-    Game_DrawStatus();
     Robots_DrawCheat();
-    System_Border(levelBorder[gameLevel]);
 }
 
 static void DoGameResponder()
