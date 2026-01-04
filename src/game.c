@@ -243,6 +243,13 @@ static void DoDrawOnce()
 
 static void DoGameTicker()
 {
+    if (gameMusic == MUS_STOP && gameInactivityTimer++ == 256 * 5 && gameMode < GM_RUNNING)
+    {
+        Game_Pause(1);
+
+        return;
+    }
+
     if (gameMusic == MUS_PLAY)
     {
         Miner_IncSeq();
@@ -253,8 +260,6 @@ static void DoGameTicker()
     {
         return;
     }
-
-    gameInactivityTimer++;
 
     Level_Ticker();
     Robots_Ticker();
@@ -300,12 +305,7 @@ static void DoGameTicker()
 
 void Game_Pause(int state)
 {
-    if (gameMode >= GM_RUNNING)
-    {
-        return;
-    }
-
-    if (gamePaused == state)
+    if (gamePaused == state || gameMode >= GM_RUNNING)
     {
         return;
     }
@@ -363,7 +363,7 @@ static void DoGameResponder()
 {
     gameInactivityTimer = 0;
 
-    if (gameInput == KEY_PAUSE)// || gamePaused)
+    if (gameInput == KEY_PAUSE)
     {
         Game_Pause(gamePaused ? 0 : 1);
     }
@@ -371,6 +371,8 @@ static void DoGameResponder()
     {
         gameMusic = gameMusic == MUS_PLAY ? MUS_STOP : MUS_PLAY;
         Audio_Play(gameMusic);
+
+        Game_Pause(0);
     }
     else if (gameInput == KEY_ESCAPE)
     {
@@ -379,19 +381,6 @@ static void DoGameResponder()
     else
     {
         Cheat_Responder();
-    }
-}
-
-static void DoGameAction()
-{
-    if (gameInactivityTimer == 256)
-    {
-        if (gameMusic == MUS_STOP && gameMode < GM_RUNNING)
-        {
-            Game_Pause(1);
-
-            gameInactivityTimer++;
-        }
     }
 }
 
@@ -425,7 +414,7 @@ void Game_InitRoom()
         Ticker = DoGameTicker;
     }
 
-    Action = DoGameAction;
+    Action = DoNothing;
 }
 
 void Game_GameReset()

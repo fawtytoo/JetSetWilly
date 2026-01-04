@@ -44,7 +44,7 @@ void Cheat_Enabled()
     }
 
     gameLevel = level;
-    Ticker = Game_InitRoom; // NOT Action
+    Action = Game_InitRoom;
 }
 
 void Cheat_Disabled()
