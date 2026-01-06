@@ -18,7 +18,7 @@ static DATA     ropeData[86] =
 static int      ropeMove[2] = {-1, 1};
 
 static int      ropeDir, ropePos, ropeHold;
-static int      ropeX;
+static int      ropeX, ropeSide;
 static u8       ropeInk;
 
 EVENT           Rope_Ticker, Rope_Drawer;
@@ -27,25 +27,22 @@ static void DoRopeDrawer()
 {
     int     x, y, pos;
     int     seg;
-    DATA    *data = &ropeData[ropePos < 0 ? -ropePos : ropePos];
+    DATA    *data = &ropeData[ropePos];
 
     x = ropeX * 8;
     y = 0;
 
     Video_DrawRopeSeg(x, ropeInk);
 
+    if (ropePos == 0)
+    {
+        ropeSide ^= 1;
+    }
+
     for (seg = 1; seg < ROPE_SEGS; seg++, data++)
     {
         y += data->y;
-
-        if (ropePos > 0)
-        {
-            x += data->x;
-        }
-        else if (ropePos < 0)
-        {
-            x -= data->x;
-        }
+        x -= data->x * ropeMove[ropeSide];
 
         pos = y * WIDTH + x;
         if (minerWillyRope == 0 && (Video_GetPixel(pos) & B_WILLY))
@@ -117,12 +114,12 @@ static void DoRopeDrawer()
 
 static void DoRopeTicker()
 {
-    ropePos += ropeMove[ropeDir] * 2;
-    if (ropePos > -18 && ropePos < 18)
+    ropePos += ropeMove[ropeDir ^ ropeSide] * 2;
+    if (ropePos < 16)
     {
-        ropePos += ropeMove[ropeDir] * 2;
+        ropePos += ropeMove[ropeDir ^ ropeSide] * 2;
     }
-    else if (ropePos == 54 || ropePos == -54)
+    else if (ropePos == 54)
     {
         ropeDir ^= 1;
     }
@@ -165,6 +162,7 @@ void Rope_Init()
     // all ropes start the same way
     ropeDir = 0;
     ropePos = 34;
+    ropeSide = 0;
 
     // this is normally reset by copying over entity definitions
     ropeHold = 0;
