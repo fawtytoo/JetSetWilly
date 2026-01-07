@@ -5,10 +5,14 @@
 Originally written in 1984 by Matthew Smith. This port is based on the original
 ZX Spectrum version, written in C and using the SDL2 library.
 
+![JetSet Willy loading screen](images/JetSetWilly.gif)
+
 ## Game play
 
 Game play is 100% identical. The original game had bugs which have been fixed, such as landing at the end
 of a jump into a solid wall.
+
+![JetSet Willy title screen](images/JetSetWilly-Title.gif)
 
 ## Video & Audio
 
@@ -22,6 +26,8 @@ Some subtle improvements have been made to make the game more enjoyable:
 include stereo panning effects.
 - To give the music and sound effects a retro feel, a square wave generator is
 used to give it a "beepy" sound.
+
+![JetSet Willy level 1](images/JetSetWilly-Level1.png)
 
 ## Cheat mode
 
@@ -37,6 +43,8 @@ to change level. These key combinations need to be pressed simultaneously.
 The original game needed a "code card" to start the game after loading. This was
 an early attempt at copy protection. If you don't want to experience entering
 those codes, press any key during the "JetSet Willy Loading" sequence.
+
+![JetSet Willy codes](images/JetSetWilly-Codes.gif)
 
 # Windows build?
 
