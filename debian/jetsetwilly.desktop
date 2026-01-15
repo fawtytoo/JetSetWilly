@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=JetSet Willy
+Comment=By Matthew Smith
+Icon=jetsetwilly
+Exec=jetsetwilly
+Terminal=false
+Categories=Game;
+StartupWMClass=jetsetwilly
