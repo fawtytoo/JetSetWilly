@@ -50,7 +50,13 @@ those codes, press any key during the "JetSet Willy Loading" sequence.
 - Linux users require installing the SDL2 library for your distro.
 - For Windows 7 and newer.
 
-# Linux compiling
-## Debian
+# Compiling
+
+## Linux/Debian
+
 - Install the packages `libsdl2-dev build-essential`
 - Then type `make install` at a command prompt.
+
+## Windows
+
+Project files are include for Visual Studio 2015.
