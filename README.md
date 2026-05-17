@@ -5,6 +5,8 @@
 Originally written in 1984 by Matthew Smith. This port is based on the original
 ZX Spectrum version, written in C and using the SDL2 library.
 
+- Can be played using keyboard or joystick
+
 ![JetSet Willy loading screen](images/JetSetWilly.gif)
 
 ## Game play
