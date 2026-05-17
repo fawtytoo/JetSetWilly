@@ -1,21 +1,3 @@
-//  Copyright 2021-2026 by Steve Clark
-
-//  This software is provided 'as-is', without any express or implied
-//  warranty.  In no event will the authors be held liable for any damages
-//  arising from the use of this software.
-
-//  Permission is granted to anyone to use this software for any purpose,
-//  including commercial applications, and to alter it and redistribute it
-//  freely, subject to the following restrictions:
-
-//  1. The origin of this software must not be misrepresented; you must not
-//     claim that you wrote the original software. If you use this software
-//     in a product, an acknowledgment in the product documentation would be
-//     appreciated but is not required. 
-//  2. Altered source versions must be plainly marked as such, and must not be
-//     misrepresented as being the original software.
-//  3. This notice may not be removed or altered from any source distribution.
-
 #include <SDL.h>
 
 #include <time.h>
@@ -32,6 +14,7 @@ static SDL_Rect             sdlViewport;
 static SDL_AudioDeviceID    sdlAudio;
 
 static const u8             *keyState;
+static int                  joyState[3];
 
 const COLOUR                *sysBorder = &videoColour[0];
 
@@ -75,6 +58,21 @@ void System_SetPixel(int point, int index)
     *pixel++ = videoColour[index].b;
     *pixel++ = videoColour[index].g;
     *pixel++ = videoColour[index].r;
+}
+
+int System_IsJoyLeft()
+{
+    return joyState[0];
+}
+
+int System_IsJoyRight()
+{
+    return joyState[1];
+}
+
+int System_IsJoyFire()
+{
+    return joyState[2];
 }
 
 int System_IsKey(int key)
@@ -121,6 +119,34 @@ static int System_GetEvent()
     {
         DoQuit();
         return 1;
+    }
+
+    if (event.type == SDL_JOYBUTTONDOWN)
+    {
+        joyState[2] = 1;
+        gameInput = KEY_ELSE;
+    }
+    else if (event.type == SDL_JOYBUTTONUP)
+    {
+        joyState[2] = 0;
+    }
+    if (event.type == SDL_JOYAXISMOTION && event.jaxis.axis == 0)
+    {
+        if (event.jaxis.value < -255)
+        {
+            joyState[0] = 1;
+            joyState[1] = 0;
+        }
+        else if (event.jaxis.value > 255)
+        {
+            joyState[0] = 0;
+            joyState[1] = 1;
+        }
+        else
+        {
+            joyState[0] = 0;
+            joyState[1] = 0;
+        }
     }
 
     if (event.type != SDL_KEYDOWN)
@@ -186,7 +212,7 @@ int main()
     TIMER           timerFlash, timerFrame;
     int             frame;
 
-    SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+    SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_JOYSTICK);
 
     SDL_SetHint(SDL_HINT_VIDEO_MINIMIZE_ON_FOCUS_LOSS, "0");
 
@@ -215,6 +241,9 @@ int main()
     SDL_PauseAudioDevice(sdlAudio, 0);
 
     keyState = SDL_GetKeyboardState(NULL);
+
+    SDL_JoystickEventState(SDL_ENABLE);
+    SDL_JoystickOpen(0);
 
     srand(time(NULL));
 
