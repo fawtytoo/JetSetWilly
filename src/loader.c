@@ -75,7 +75,7 @@ static void DoLoaderDrawer1()
     System_Border(0x1);
     Video_PixelPaperFill(0, WIDTH * HEIGHT, 0x1);
     Video_Write(23 * 8 * WIDTH, "\x1\x1\x2\x7" "fawtytoo");
-    Video_Write(23 * 8 * WIDTH + WIDTH - Video_TextWidth(BUILD), "\x2\x0" BUILD);
+    Video_Write(23 * 8 * WIDTH + WIDTH - Video_TextWidth(__DATE__), "\x2\x0" __DATE__);
 
     Audio_Music(MUS_LOADER, MUS_PLAY);
 
