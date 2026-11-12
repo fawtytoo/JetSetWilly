@@ -32,8 +32,9 @@ static void Die_Drawer()
 
 static void Die_Ticker()
 {
-    if (dieLevel-- > 0)
+    if (dieLevel > 0)
     {
+        dieLevel--;
         return;
     }
 
