@@ -19,10 +19,10 @@
 #include "common.h"
 #include "video.h"
 #include "audio.h"
+#include "game.h"
 
 static u16      plinthSprite[16] = {14316, 30702, 0, 28662, 61431, 61431, 54619, 56251, 54619, 57339, 60791, 61175, 28022, 0, 30702, 14316};
 static u16      bootSprite[16] = {4224, 4224, 4224, 4224, 4224, 4224, 4224, 8320, 8320, 18498, 34869, 33801, 32769, 32770, 17293, 15478};
-static u16      minerSprite[16] = {960, 960, 2016, 832, 992, 960, 384, 960, 2016, 2016, 3952, 4016, 960, 1888, 1760, 1904};
 
 static int      bootTicks;
 
@@ -73,7 +73,7 @@ static void Gameover_Init()
 {
     System_Border(0x0);
     Video_PixelFill(0, 128 * WIDTH);
-    Video_DrawSprite(96 * WIDTH + 15 * 8, minerSprite, 0x0, 0x7);
+    Miner_DrawSprite(96 * WIDTH + 15 * 8, 0x0, 0x7, 2);
     Video_DrawSprite(112 * WIDTH + 15 * 8, plinthSprite, 0x0, 0x2);
     bootTicks = 0;
 
