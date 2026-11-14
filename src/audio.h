@@ -38,6 +38,7 @@ enum
 
 extern int  audioMusicPlaying;
 extern int  audioPanX;
+extern int  musicClock;
 
 void Audio_Init(void);
 void Audio_Music(int, int);

@@ -127,9 +127,7 @@ void Miner_Ticker(void);
 void Miner_Drawer(void);
 void Miner_Save(void);
 void Miner_Restore(void);
-void Miner_SetSeq(int, int);
-void Miner_IncSeq(void);
-void Miner_DrawSeqSprite(int, u8, u8);
+void Miner_DrawSprite(int, u8, u8, int);
 
 // robots
 void Robots_Init(void);

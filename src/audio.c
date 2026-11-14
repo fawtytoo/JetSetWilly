@@ -178,7 +178,8 @@ static SFX      sfxInfo[NSFX] =
 
 static int      musicIndex;
 static int      musicTempo, musicPitch;
-static int      musicClock = 0, musicDelta;
+int             musicClock = 0;
+static int      musicDelta;
 static short    *curMusic;
 static int      samplesMusic = 0;
 

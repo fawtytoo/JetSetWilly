@@ -81,30 +81,15 @@ static JUMP     jumpInfo[] =
 static MINER    minerStore;
 static u16      (*minerFrame)[16];
 
-static u8       minerSeqIndex;
-static TIMER    minerTimer;
-
 MINER           minerWilly = {.frame = 0, .dir = D_RIGHT};
 int             minerWillyRope;
 int             minerAttrSplit;
 
 static int      minerSequence[8] = {0, 1, 2, 3, 7, 6, 5, 4};
 
-void Miner_SetSeq(int index, int speed)
+void Miner_DrawSprite(int pos, u8 paper, u8 ink, int index)
 {
-    Timer_Set(&minerTimer, 1, speed);
-    minerSeqIndex = index;
-}
-
-void Miner_IncSeq()
-{
-    minerSeqIndex += Timer_Update(&minerTimer);
-    minerSeqIndex &= 7;
-}
-
-void Miner_DrawSeqSprite(int pos, u8 paper, u8 ink)
-{
-    Video_DrawSprite(pos, minerSprite[minerSequence[minerSeqIndex]], paper, ink);
+    Video_DrawSprite(pos, minerSprite[minerSequence[index & 7]], paper, ink);
 }
 
 void Miner_Restore()

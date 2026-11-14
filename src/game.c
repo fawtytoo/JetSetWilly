@@ -90,7 +90,7 @@ static void GameDrawLives()
 
     for (l = 0; l < gameLives; l++)
     {
-        Miner_DrawSeqSprite(LIVES + l * 16, 0x0, lifeInk[l]);
+        Miner_DrawSprite(LIVES + l * 16, 0x0, lifeInk[l], musicClock >> 4);
     }
 }
 
@@ -268,11 +268,6 @@ static void DoGameTicker()
         return;
     }
 
-    if (gameMusic == MUS_PLAY)
-    {
-        Miner_IncSeq();
-    }
-
     gameFrame = Timer_Update(&gameTimer);
     if (gameFrame == 0)
     {
@@ -448,7 +443,6 @@ void Game_GameReset()
 
     gamePaused = 0;
 
-    Miner_SetSeq(0, 20);
     gameLives = 7;
 
     Audio_Music(MUS_GAME, gameMusic);
